@@ -1,0 +1,24 @@
+version: "3.9"
+
+services:
+  recipes_db:
+    container_name: recipes_db
+    image: postgres:14.3-alpine
+    environment:
+      POSTGRES_PASSWORD: ${recipes_db_password}
+      POSTGRES_USER: ${recipes_db_user}
+      POSTGRES_DB: ${recipes_db_db}
+    ports:
+      - ${recipes_db_port}:5432
+    volumes:
+      - recipes_db_data:/var/lib/postgresql/data
+    restart: unless-stopped
+    networks:
+      - api
+
+volumes:
+  recipes_db_data:
+
+networks:
+  api:
+    driver: bridge
