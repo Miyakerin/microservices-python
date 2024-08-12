@@ -35,4 +35,4 @@ volumes:
 networks:
   network:
     name: app_network
-    driver: external
+    external: true
