@@ -14,6 +14,8 @@ services:
     volumes:
       - recipes_db_data:/var/lib/postgresql/data
     restart: unless-stopped
+    command:
+      - -p ${RECIPES_DB_PORT_CONTAINER}
     networks:
       - network
 
@@ -26,6 +28,8 @@ services:
     ports:
       - ${FASTAPI_EXPOSE_PORT}:${FASTAPI_PORT}
     restart: unless-stopped
+    depends_on:
+      - recipes_db
     networks:
       - network
 
