@@ -17,6 +17,18 @@ services:
     networks:
       - network
 
+  recipe-service:
+    container_name: recipe-service
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file: .env
+    ports:
+      - ${FASTAPI_EXPOSE_PORT}:${FASTAPI_PORT}
+    restart: unless-stopped
+    networks:
+      - network
+
 volumes:
   recipes_db_data:
 
