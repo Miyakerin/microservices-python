@@ -4,12 +4,13 @@ services:
   recipes_db:
     container_name: recipes_db
     image: postgres:14.3-alpine
+    env_file: .env
     environment:
       POSTGRES_PASSWORD: ${RECIPES_DB_PASSWORD}
       POSTGRES_USER: ${RECIPES_DB_USER}
       POSTGRES_DB: ${RECIPES_DB_DB}
     ports:
-      - ${RECIPES_DB_PORT}:5432
+      - ${RECIPES_DB_PORT_HOST}:${RECIPES_DB_PORT_CONTAINER}
     volumes:
       - recipes_db_data:/var/lib/postgresql/data
     restart: unless-stopped
