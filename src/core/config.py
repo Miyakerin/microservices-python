@@ -1,22 +1,19 @@
+from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class RecipesDbSettings(BaseSettings):
-    model_config = SettingsConfigDict(
-        env_prefix="RECIPES_DB_", env_file="../.env", extra="ignore"
-    )
+    model_config = SettingsConfigDict(env_prefix="RECIPES_DB_", extra="ignore")
     user: str = "user"
     password: str = "password"
     db: str = "db"
-    host: str = "localhost"
+    host: str = "localhostdfdf"
     port_host: int = 5432
     echo: bool = True
 
 
 class FastAPISettings(BaseSettings):
-    model_config = SettingsConfigDict(
-        env_prefix="FASTAPI_", env_file="../.env", extra="ignore"
-    )
+    model_config = SettingsConfigDict(env_prefix="FASTAPI_", extra="ignore")
     host: str = "localhost"
     port: int = 8080
 
