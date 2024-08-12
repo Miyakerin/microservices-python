@@ -15,11 +15,12 @@ services:
       - recipes_db_data:/var/lib/postgresql/data
     restart: unless-stopped
     networks:
-      - api
+      - network
 
 volumes:
   recipes_db_data:
 
 networks:
-  api:
-    driver: bridge
+  network:
+    name: app_network
+    driver: external
