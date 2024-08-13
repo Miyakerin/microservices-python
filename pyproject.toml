@@ -11,11 +11,11 @@ python = "^3.12"
 fastapi = "^0.112.0"
 uvicorn = {extras = ["standart"], version = "^0.30.5"}
 pydantic-settings = "^2.4.0"
-alembic = "^1.13.2"
 black = "^24.8.0"
 psycopg2 = "^2.9.9"
 sqlalchemy = {extras = ["asyncio"], version = "^2.0.32"}
 asyncpg = "^0.29.0"
+python-dotenv = "^1.0.1"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.2"

@@ -6,20 +6,21 @@ from src.recipes.entities.recipe_entity import Recipe
 from src.recipes.services import recipe_services
 from typing import Sequence
 from src.dbUtil.db_helper import DatabaseHelper
+from src.recipes.dto.recipe_dto import RecipeDTO
 
 router = APIRouter(prefix="/api/recipes", tags=["Recipes"])
 db_settings = config.settings.recipes_db
 db_help = DatabaseHelper(db_settings)
 
 
-@router.get("")
+@router.get("", response_model=RecipeDTO)
 async def get_recipes(
     session: AsyncSession = Depends(db_help.session_dependency),
 ) -> Sequence[Recipe]:
     return await recipe_services.get_recipes(session)
 
 
-@router.get("/{recipe_id}")
+@router.get("/{recipe_id}", response_model=RecipeDTO)
 async def get_recipe(
     recipe_id: int, session: AsyncSession = Depends(db_help.session_dependency)
 ) -> Recipe:
