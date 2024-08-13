@@ -5,8 +5,10 @@ from fastapi import FastAPI
 
 import src.recipes
 from src.core.config import settings
-from src.recipes.services.recipe_services import engine
+from src.recipes.controllers.recipe_controller import db_help
 from src.recipes.entities.base import Base
+
+engine = db_help.engine
 
 
 @asynccontextmanager
