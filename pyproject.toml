@@ -15,7 +15,7 @@ black = "^24.8.0"
 psycopg2 = "^2.9.9"
 sqlalchemy = {extras = ["asyncio"], version = "^2.0.32"}
 asyncpg = "^0.29.0"
-python-dotenv = "^1.0.1"
+pyjwt = "^2.9.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.2"
