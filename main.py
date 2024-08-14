@@ -1,34 +1,25 @@
 import asyncio
+import base64
 import logging
 from contextlib import asynccontextmanager
 
 import uvicorn
+from cryptography.hazmat.backends import default_backend
+from cryptography.hazmat.primitives.serialization import load_pem_public_key
+from cryptography.hazmat.primitives.asymmetric import rsa
 from fastapi import FastAPI
+import ssl
 
 import src.recipes
 from src.core.config import settings
 from src.recipes.controllers.recipe_controller import db_help
 from src.recipes.entities.base import Base
 import py_eureka_client.eureka_client as eureka_client
+from src.jwtUtil.jwt_util import JWTUtil
 
 logger = logging.getLogger("uvicorn.error")
 
 engine = db_help.engine
-
-
-async def get_public_key(interval: int = 1800):
-    # auth_url = f"http://{settings.auth_settings.domain_name}/api/auth/jwt/publicKey"
-    while True:
-        # logger.info(f"Getting public key at {auth_url}")
-        ans = await eureka_client.do_service_async(
-            settings.auth_settings.domain_name, "/api/auth/jwt/publicKey"
-        )
-        settings.auth_settings.public_key = ans
-        logger.info(
-            f"Getting new public key from: {settings.auth_settings.domain_name}"
-        )
-
-        await asyncio.sleep(interval)
 
 
 async def connect_to_eureka():
@@ -46,7 +37,7 @@ async def lifespan(app: FastAPI):
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
     await connect_to_eureka()
-    asyncio.create_task(get_public_key(interval=1800))
+    asyncio.create_task(JWTUtil.load_keys(interval=1800))
     yield
 
 
