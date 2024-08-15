@@ -19,6 +19,7 @@ services:
     networks:
       - network
 
+# docker exec recipe-:service poetry run alembic upgrade head after container start
   recipe-service:
     container_name: recipe-service
     build:

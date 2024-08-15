@@ -20,6 +20,8 @@ RUN poetry install --no-root && rm -rf $POETRY_CACHE_DIR
 
 COPY src ./src
 COPY main.py .
+COPY alembic ./alembic
+COPY alembic.ini .
 
 RUN poetry install
 
