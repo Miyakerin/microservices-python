@@ -6,3 +6,7 @@ class RecipeDTO(BaseModel):
     id: int
     title: str
     description: str
+    user_id: int
+    calories: int
+    spice_level: int
+    is_deleted: bool
