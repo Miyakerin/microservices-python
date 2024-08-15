@@ -17,6 +17,8 @@ class JWTUtil:
 
     @classmethod
     def get_claims(cls, token: str) -> dict:
+        if token is None:
+            raise HTTPException(status_code=401, detail="Token is None")
         token = token.replace("Bearer ", "")
         try:
             claims = jwt.decode(
@@ -29,7 +31,7 @@ class JWTUtil:
             )
         except jwt.ExpiredSignatureError:
             raise HTTPException(status_code=401, detail="Token expired")
-        except jwt.InvalidTokenError:
+        except jwt.InvalidTokenError as e:
             raise HTTPException(status_code=401, detail="Invalid token")
         except jwt.InvalidSignatureError:
             raise HTTPException(status_code=401, detail="Invalid signature")
